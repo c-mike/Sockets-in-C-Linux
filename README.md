@@ -2,7 +2,7 @@
 
   Um Socket full duplex em C Linux
 
-# Conpilação
+# Compilação
 
   ## Servidor
     Dentro do diretorio(pasta) Servidor, no terminal execute:
