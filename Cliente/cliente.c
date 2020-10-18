@@ -13,6 +13,8 @@
 
 #define STDIN 0
 
+// nd no
+
 //******************************************* cabeçalho de funsons
 bool menuConversa(int sockFd);
 void conversa(int socketFd);
