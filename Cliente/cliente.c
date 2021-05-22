@@ -177,7 +177,7 @@ bool stado_cliente(char *nome){
     FILE *f;
     if ((f = fopen(".sistema/clientesON.txt", "r")) != NULL)
     {
-        char nm_fich[20];
+        char nm_fich[32];
         while ((fscanf(f, "%s", nm_fich)) != -1)
         {
             if ((strcmp(nm_fich, nome)) == 0)
@@ -207,7 +207,7 @@ void recebe_msg(int socketFd){
         bzero(msg, 255);
         while (i-- > 0){
             if (read(socketFd, &msg, 255) < 0)
-                erro("erro na recebe msg k sta na kel merda de fichero...\n");
+                erro("erro na recebe msg k sta na kel fichero...\n");
             else
             {
                 if (strchr(msg, '\\') != NULL) // pa da kebra de linha na msg k ta bbem de fich
@@ -249,21 +249,27 @@ bool menuConversa(int socketFD){
         }
         printf("-----------------------------\n\n");
         printf("Entre com nome do cliente para conversar!!\n");
-        while (1)
-        {
-            char nd[32];
-            fgets(nd, 32, stdin);
-            scanf("%s",nome);
-            if (strcmp(nome, ".") == 0){
-                break;
-            }
+        
+        fgets(nome, 32, stdin);
+        //scanf("%s",nome);
+                                    // if (strcmp(nome, ".") == 0){
+                                    //     break;
+                                    // }
+        
+                                        // while (1)
+                                        // {
+                                        //     fgets(nome, 32, stdin);
+                                        //     //scanf("%s",nome);
+                                        //     if (strcmp(nome, ".") == 0){
+                                        //         break;
+                                        //     }
 
-            if (stado_cliente(nome)) 
-                break;
-            else
-                printf("Não tem niguem con esse nome!\n");
-        }
-        if ( write(socketFD, nome, 32) < 0)
+                                        //     // if (stado_cliente(nome)) 
+                                        //     //     break;
+                                        //     // else
+                                        //     //     printf("Não tem niguem con esse nome!\n");
+                                        // }
+        if (write(socketFD, nome, 32) < 0)
             erro("erro na manda nm de destino!\n");
         
         if (strcmp(nome, ".") == 0) return false;
