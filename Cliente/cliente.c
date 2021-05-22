@@ -139,7 +139,7 @@ MN: volta = menuConversa(socketFd);
 
             if (FD_ISSET(0, &copyFD)) // pa manda msg
             {
-                gets(msg);
+                fgets(msg);
                 if (strcmp(msg, "*") == 0 || strcmp(msg, ".") == 0)
                 {
                     strcat(msg_final, msg);
@@ -277,14 +277,14 @@ bool menuConversa(int socketFD){
 bool cadastro(int sockFd){
     char user[70]={ }, nm[50], senha[20], confSenha[20];
     printf("Entre com o Nome :\n");
-    scanf("%s", &nm);
+    scanf("%s", nm);
 
     int i=1;
 L:  printf("Entre com a Senha :\n");
-    scanf("%s", &senha);
+    scanf("%s", senha);
 
     printf("Confirma sua Senha :\n");
-    scanf("%s", &confSenha);
+    scanf("%s", confSenha);
 
     if (strcmp(senha, confSenha) != 0)
     {
@@ -314,7 +314,7 @@ bool login(int sockFd){
     int i=0;
 
 M:  printf("Entre com o nome e senha:\n");
-    scanf("%s %s", &nm, &senha);
+    scanf("%s %s", nm, senha);
 
     strcat(user,nm);
     strcat(user,"-");
