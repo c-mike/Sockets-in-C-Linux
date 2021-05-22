@@ -139,7 +139,7 @@ MN: volta = menuConversa(socketFd);
 
             if (FD_ISSET(0, &copyFD)) // pa manda msg
             {
-                fgets(msg);
+                fgets(msg, 225, stdin);
                 if (strcmp(msg, "*") == 0 || strcmp(msg, ".") == 0)
                 {
                     strcat(msg_final, msg);
