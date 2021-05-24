@@ -28,13 +28,13 @@ MN: volta = menuConversa(socketFD);
         printf("so na conversa...\n");
         while (1) {
             bzero(msg, 255);
-            manda_msg(socketFD, msg, fichero);
-
+            manda_msg(socketFD, msg, fichero);         
+            
             // inicializa select
             copyFD=readFD;
-            tm.tv_sec= 4;
-            tm.tv_usec = 4000000;
-            
+            tm.tv_sec = 4;
+            //tm.tv_usec = 4000000;
+
             // e ta retorna um valor se cliente manda msg ou 0 time-out
             // kel segundo parametro e de read, so el kin meste
 
@@ -86,19 +86,20 @@ void manda_msg(int socketFD, char msg[], char *fichero){
 
         if (write(socketFD, &i, sizeof(i)) < 0)
             erro("erro na manda tamanho de fichero...1\n");
-
+        
         if (i>0)
         {
-            rewind(f); // 
+            rewind(f); // pui pontero ta aponta pa inicio de fichero
             while (fscanf(f, "%s", msg) != -1){
                 
                 if ( write(socketFD, msg, 255) < 0)
                     erro("erro na manda msg k sta na fichero...\n");
             }
-        }
+        }        
     } else {
         if (write(socketFD, &i, sizeof(i)) < 0)
             erro("erro na manda tamanho de fichero...2\n");
+            
         printf("erro na abri fichero pa le...\n");
     }
     fclose(f);
@@ -106,7 +107,7 @@ void manda_msg(int socketFD, char msg[], char *fichero){
 
 //******************************************* fç pa manda cliente lista de clientes
 bool menuConversa(int socketFD){
-    printf("so na manda menu...");
+    printf("so na manda lista de clientes ON...");
 
     int i=0;
     FILE *f;

@@ -22,22 +22,22 @@ char *nm_caminho_fich(char *cltOrig, char *cltDest){
     strcpy(nome_1, nome_fichero(cltOrig, cltDest));
     strcpy(nome_2, nome_fichero(cltDest, cltOrig));
     
-    if ( (f=fopen(nome_1, "r")) != NULL) // caso fichero dxa exist de primera...
+    if ( (f=fopen(nome_1, "r")) != NULL)            // caso fichero dxa exist de primera...
     {
-       fich = nome_1;
-       printf("fichero [%s] aberto...1\n", fich);
+        fich = nome_1;
+        printf("fichero [%s] aberto...1\n", fich);
     }
-    else if ( (f=fopen(nome_2, "r")) != NULL) // caso fichero existe cu nm aucontrario
+    else if ( (f=fopen(nome_2, "r")) != NULL)       // caso fichero existe cu nm aucontrario
     {
         fich = nome_2;
         printf("fichero [%s] aberto...2\n", fich);
     }
-    else // caso fichero ca existe nta crial
+    else                                            // caso fichero ca existe nta crial
     {
         if ( (f=fopen(nome_1, "w")) != NULL)
         {
-            printf("fichero criado - [%s]...\n",nome_fichero(cltOrig, cltDest));
             fich = nome_1;
+            printf("fichero criado - [%s]...\n", fich);
         }
     }
     fclose(f);
@@ -53,6 +53,22 @@ char *nome_fichero(char *origem, char *destino){
     strcat(nome, ".txt");
 
     nm = nome;
+
+                    // // pa tra espaso na nome
+                    // char text[100], nmFinal[100];
+                    // int c=0, d=0;
+                    // while (nm[c] != '\0')
+                    // {
+                    //     if (!(nm[c] == ' ' && nm[c+1] == ' ')) {
+                    //         nmFinal[d] = nm[c];
+                    //         d++;
+                    //     }
+                    //     c++;
+                    // }
+                    
+                    // nmFinal[d] = '\0';
+                    // printf("nome final: %s\n", nmFinal);
+    
     return (nm);
 }
 

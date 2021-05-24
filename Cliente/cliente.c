@@ -13,8 +13,6 @@
 
 #define STDIN 0
 
-// nd no
-
 //******************************************* cabeçalho de funsons
 bool menuConversa(int sockFd);
 void conversa(int socketFd);
@@ -58,16 +56,8 @@ int main(int argc, char *argv[])
     if(connect(sockFd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
         erro("falha na conecta.\n");
 
-    //configura biblioteca locale 
+    //configura biblioteca locale pa asentos
     setlocale(LC_ALL, "Portuguese");
-
-    // inicializa lib curses
-    /*
-        initscr();
-        raw();
-        noecho();
-        keypad(stdscr, TRUE);
-    */
 
     int op;
     do{
@@ -120,10 +110,10 @@ MN: volta = menuConversa(socketFd);
         bzero(msg, 225);
         recebe_msg(socketFd);
 
-        // inicializa select
+        // inicializa select, es ta fica dento loop pa pode reseta valor a cd ciclo
         copyFD=readFD;
-        tm.tv_sec = 4; // 2 segundo
-        tm.tv_usec = 4000000; // ... microsugundo
+        tm.tv_sec = 4; // 4 segundo
+        //tm.tv_usec = 4000000; // ... microsugundo
 
         printf("%s: ", cliente);
         int slt = select(socketFd+1, &copyFD, NULL, NULL, &tm);
@@ -173,23 +163,23 @@ void ajuda(){
 }
 
 //******************************************* fç pa analisa pa dxobe s cliente sta ON
-bool stado_cliente(char *nome){
-    FILE *f;
-    if ((f = fopen(".sistema/clientesON.txt", "r")) != NULL)
-    {
-        char nm_fich[32];
-        while ((fscanf(f, "%s", nm_fich)) != -1)
-        {
-            if ((strcmp(nm_fich, nome)) == 0)
-            {
-                fclose(f);
-                return true;
-            }
-        }
-    }
-    fclose(f);
-    return false;
-}
+// bool stado_cliente(char *nome){
+//     FILE *f;
+//     if ((f = fopen(".sistema/clientesON.txt", "r")) != NULL)
+//     {
+//         char nm_fich[32];
+//         while ((fscanf(f, "%s", nm_fich)) != -1)
+//         {
+//             if ((strcmp(nm_fich, nome)) == 0)
+//             {
+//                 fclose(f);
+//                 return true;
+//             }
+//         }
+//     }
+//     fclose(f);
+//     return false;
+// }
 
 //******************************************* fç pa recebe msg de servidor
 void recebe_msg(int socketFd){
@@ -198,9 +188,9 @@ void recebe_msg(int socketFd){
     system("clear");
 
     // recebe tamanho de fichero
-    if (read(socketFd, &i, sizeof(i)) < 0)
+    if (read(socketFd, &i, 4) < 0)
         erro("erro na recebe tamanho de fichero...\n");
-    
+        
     if (i>0)
     {
         char *n, nm_direita[32]={ };
@@ -210,7 +200,7 @@ void recebe_msg(int socketFd){
                 erro("erro na recebe msg k sta na kel fichero...\n");
             else
             {
-                if (strchr(msg, '\\') != NULL) // pa da kebra de linha na msg k ta bbem de fich
+                if (strchr(msg, '\\') != NULL) // pa da kebra de linha na msg k ta bem de fich
                 {
                     n = strtok(msg, "\\");
                     printf("%s\n",n);
