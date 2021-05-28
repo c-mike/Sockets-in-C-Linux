@@ -61,7 +61,8 @@ MN: volta = menuConversa(socketFD);
 
                     // ta guardal na fichero
                     if ((f=fopen(fichero,"a")) != NULL)
-                        fprintf(f, "%s\n", msg);
+                        //fprintf(f, "%s\n", msg);
+                        fprintf(f, "%s", msg);
                     else 
                         printf("erro na abre fichero pa guarda msg...\n");
                     

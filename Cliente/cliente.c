@@ -240,8 +240,8 @@ bool menuConversa(int socketFD){
         printf("-----------------------------\n\n");
         printf("Entre com nome do cliente para conversar!!\n");
         
-        fgets(nome, 32, stdin);
-        //scanf("%s",nome);
+        //fgets(nome, 32, stdin);
+        scanf("%s",nome);
                                     // if (strcmp(nome, ".") == 0){
                                     //     break;
                                     // }
